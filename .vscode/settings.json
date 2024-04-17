@@ -1,0 +1,91 @@
+{
+  "json.schemaDownload.enable": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "editor.rulers": [120],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "better-comments.tags": [
+    {
+      "tag": "xxx",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "hack",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "fixme",
+      "color": "#EDF1D6",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "note",
+      "color": "#609966",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "ux",
+      "color": "#9DC08B",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  "cSpell.words": [
+    "accesstoken",
+    "APIURL",
+    "backoffice",
+    "bossanova",
+    "BPMS",
+    "Chilloen",
+    "counte",
+    "KAKAO",
+    "keeneat",
+    "keytar",
+    "Lofi",
+    "naver",
+    "Newage",
+    "nextauth",
+    "nextjs",
+    "pandacss",
+    "refreshtoken",
+    "REINPUT",
+    "signin",
+    "signup",
+    "softhouse",
+    "Srcs",
+    "tanstack",
+    "Tonejs",
+    "wavesurfer"
+  ]
+}
