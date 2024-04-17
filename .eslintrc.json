@@ -8,21 +8,11 @@
   "parserOptions": {
     "parser": "@typescript-eslint/parser"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "prettier",
-    "next/core-web-vitals"
-  ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "plugins": ["@typescript-eslint", "import", "react", "react-hooks"],
   "settings": {
     "import/resolver": {
       "typescript": {}
-    },
-    "react": {
-      "version": "detect"
     }
   },
   "rules": {
@@ -99,16 +89,6 @@
           "order": "asc",
           "caseInsensitive": true
         }
-      }
-    ],
-    "react/prop-types": "off",
-    "react/display-name": "off",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/react-in-jsx-scope": "off",
-    "react/no-unknown-property": [
-      "error",
-      {
-        "ignore": ["css"]
       }
     ]
   }
