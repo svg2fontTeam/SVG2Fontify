@@ -1,17 +1,132 @@
-<h2>Shape Creator</h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .container {
+      align-content: center;
+    }
+
+    .inputTitle {
+      font-size: 15px;
+      font-weight: bold;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      padding: 10px;
+    }
+
+    .checkboxLabel {
+      font-size: 12px;
+      font-weight: 300;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      position: relative;
+      top: -1.5px;
+      margin-right: 30px;
+    }
+
+    .inputText {
+      border-radius: 15px;
+      padding: 10px;
+      text-indent: 0.8em;
+      margin: 0px 5px 0px 5px;
+      font-size: 12px;
+    }
+
+    .width100 {
+      width: 100%;
+    }
+
+    .width90 {
+      width: 90%;
+    }
+
+    .width50 {
+      width: 50%;
+    }
+
+    .GenerateBtn {
+      margin-top: 10px;
+      height: 28px;
+      border-radius: 15px;
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <title>SVG2Fontify</title>
+</head>
+<body>
+  <form class="container" action="">
+    <table>
+      <colgroup>
+        <col colspan="2" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td colspan="2">
+            <div class="inputTitle">FONT NAME</div>
+            <input class="inputText width100" placeholder="Font name" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="inputTitle">CLASS PREFIX</div>
+            <input class="inputText width90" placeholder="Prefix for SVGs" />
+          </td>
+          <td>
+            <div class="inputTitle">CLASS SUFFIX</div>
+            <input class="inputText width90" placeholder="Suffix for SVGs" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="inputTitle">VERSION</div>
+            <input class="inputText width50" placeholder="Version" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <colgroup>
+        <col colspan="3" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td colspan="3"><div class="inputTitle">EXPORT OPTION</div></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" id="react" />
+            <label for="react" class="checkboxLabel">React(.tsx)</label>
+          </td>
+          <td>
+            <input type="checkbox" id="vue" />
+            <label for="vue" class="checkboxLabel">Vue(.vue)</label>
+          </td>
+          <td>
+            <input type="checkbox" id="sass" />
+            <label for="sass" class="checkboxLabel">Sass</label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <button class="GenerateBtn width100">Generate</button>
+</body>
+
+<!-- <h2>Shape Creator</h2>
 <p>Count: <input id="count" type="number" value="5"></p>
 <button id="create">Create</button>
-<button id="cancel">Cancel</button>
+<button id="cancel">Cancel</button> -->
+
 <script>
+  // document.getElementById('create').onclick = () => {
+  //   const textbox = document.getElementById('count');
+  //   const count = parseInt(textbox.value, 10);
+  //   parent.postMessage(
+  //     { pluginMessage: { type: 'create-shapes', count } },
+  //     '*'
+  //   );
+  // };
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-shapes', count } }, '*')
-}
-
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
-
+  // document.getElementById('cancel').onclick = () => {
+  //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+  // };
 </script>
