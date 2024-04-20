@@ -87,3 +87,6 @@ if (figma.editorType === 'figjam') {
     figma.closePlugin();
   };
 }
+
+console.log('Hello, world! CI');
+console.log('Hello, world! CI');
