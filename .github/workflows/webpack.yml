@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "trunk" ]
+    branches: ['trunk']
   pull_request:
-    branches: [ "trunk" ]
+    branches: ['trunk']
 
 jobs:
   build:
@@ -15,19 +15,19 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    - name: unit-test
-      run: |
-        npm run test
-      
-    - name: Build
-      run: |
-        npm install
-        npm run build
-        npm run lint
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: unit-test
+        run: |
+          npm install
+          npm run test
+
+      - name: Build
+        run: |
+          npm run build
+          npm run lint
