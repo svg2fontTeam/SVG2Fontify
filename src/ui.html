@@ -1,0 +1,58 @@
+<main>
+  <form class="container" action="">
+    <table>
+      <colgroup>
+        <col colspan="2" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td colspan="2">
+            <div class="inputTitle">FONT NAME</div>
+            <input class="inputText width100" placeholder="Font name" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="inputTitle">CLASS PREFIX</div>
+            <input class="inputText width90" placeholder="Prefix for SVGs" />
+          </td>
+          <td>
+            <div class="inputTitle">CLASS SUFFIX</div>
+            <input class="inputText width90" placeholder="Suffix for SVGs" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="inputTitle">VERSION</div>
+            <input class="inputText width50" placeholder="Version" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <colgroup>
+        <col colspan="3" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td colspan="3"><div class="inputTitle">EXPORT OPTION</div></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" id="react" />
+            <label for="react" class="checkboxLabel">React(.tsx)</label>
+          </td>
+          <td>
+            <input type="checkbox" id="vue" />
+            <label for="vue" class="checkboxLabel">Vue(.vue)</label>
+          </td>
+          <td>
+            <input type="checkbox" id="sass" />
+            <label for="sass" class="checkboxLabel">Sass</label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <button class="GenerateBtn width100">Generate</button>
+</main>

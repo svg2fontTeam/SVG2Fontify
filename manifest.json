@@ -2,18 +2,13 @@
   "name": "SVG2Fontify",
   "id": "1361711847178588735",
   "api": "1.0.0",
-  "main": "code.js",
+  "main": "dist/code.js",
   "capabilities": [],
   "enableProposedApi": false,
   "documentAccess": "dynamic-page",
-  "editorType": [
-    "figma",
-    "figjam"
-  ],
-  "ui": "ui.html",
+  "editorType": ["figma", "figjam"],
+  "ui": "dist/ui.html",
   "networkAccess": {
-    "allowedDomains": [
-      "none"
-    ]
+    "allowedDomains": ["none"]
   }
 }
