@@ -89,3 +89,4 @@ if (figma.editorType === 'figjam') {
 }
 
 console.log('Hello, world! CI');
+console.log('Hello, world! CI');
