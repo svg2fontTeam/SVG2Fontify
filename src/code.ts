@@ -88,4 +88,4 @@ if (figma.editorType === 'figjam') {
   };
 }
 
-console.log('Hello, world! CI');
+console.log('Hello, world! CI: 테스트가 실행 되어야 합니다.');
