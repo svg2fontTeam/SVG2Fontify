@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json", // 기본 설정 상속
+  "compilerOptions": {
+    "outDir": "./out-test", // 테스트 컴파일 출력 디렉토리
+    "baseUrl": "./",
+    "paths": {
+      "*": ["types/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "**/*.test.ts" // 테스트 디렉토리 포함
+  ],
+  "exclude": ["node_modules"]
+}
