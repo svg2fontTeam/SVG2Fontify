@@ -4,7 +4,7 @@
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 // Runs this code if the plugin is run in Figma
 
-import { createVersionPage } from './utils/version';
+import { createVersionPage } from './utils/versionPage';
 
 if (figma.editorType === 'figma') {
   // This plugin will open a window to prompt the user to enter a number, and
