@@ -17,7 +17,6 @@ export function getselectedItems(target = figma) {
   return layersToCopy.map((layer) => layer.clone());
 }
 
-// @see https://github.com/destefanis/Discord-Figma-Project-Scaffold
 export const createVersionPage = async (title: string, target = figma) => {
   const items = getselectedItems(target);
   const versionPage = createPage(title, target);
