@@ -51,9 +51,9 @@
 }
 
 .count {
-  display: flex;
   text-align: center;
-  display: none;
+  display: flex;
+  visibility: visible;
   height: 16px;
   width: 16px;
   border-radius: 50%;

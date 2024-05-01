@@ -25,23 +25,6 @@ export default async function drag() {
       return { name: node.name, svg: svgFile };
     })
   );
-  console.log(svgs);
+
   figma.ui.postMessage({ type: 'selected-svgs', svgs: svgs });
-
-  window.onmessage = (event: MessageEvent) => {
-    console.log(event.data.pluginMessage);
-    const { type, svgs } = event.data.pluginMessage as { type: string; svgs: SceneNode[] };
-    if (type === 'selected-svgs') {
-      const countBadge = document.getElementById('count-badge');
-
-      if (!countBadge) {
-        console.error('Element with id "count-badge" not found.');
-        return;
-      }
-      countBadge.textContent = svgs.length.toString();
-      countBadge.style.display = 'flex';
-
-      // 이곳에서 SVG 데이터를 처리하거나 사용자에게 보여줄 수 있음
-    }
-  };
 }

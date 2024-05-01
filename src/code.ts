@@ -19,9 +19,26 @@ if (figma.editorType === 'figma') {
 
   console.log('플러그인이 시작되었습니다.');
 
+  // figma.on('selectionchange', async () => await drag());
+
+  // // const postMessage = () => {
+  // //   figma.ui.postMessage({
+  // //     data: figma.currentPage.selection.length,
+  // //   });
+
+  // // };
+  // // figma.on('selectionchange', postMessage);
+
+  // // postMessage();
+  // drag();
+
+  // eslint-disable-next-line no-inner-declarations
+
   figma.on('selectionchange', () => {
     drag();
   });
+
+  drag();
 
   figma.ui.onmessage = (msg: { type: string; version: string }) => {
     if (msg.type === 'create-page') {
