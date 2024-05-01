@@ -1,11 +1,18 @@
 import SVGIcons2SVGFontStream from 'svgicons2svgfont';
-import { getselectedItems } from './versionPage';
-import { Readable } from 'stream';
+import webfontsGenerator from 'webfonts-generator';
+import { Readable, Writable } from 'stream';
+
+interface ReadableWithMetadata extends Readable {
+  metadata?: {
+    unicode: string[];
+    name: string;
+  };
+}
 
 // figma node -> svg로 변환
 export async function generateSVGCode(target = figma) {
-  const svgs = getselectedItems(target);
-
+  // const svgs = getselectedItems(target);
+  const svgs = target.currentPage.selection;
   const svgCodeList = await Promise.all(
     svgs.map(async (svg) => {
       const convertSVG = await svg.exportAsync({
@@ -18,28 +25,91 @@ export async function generateSVGCode(target = figma) {
   return svgCodeList;
 }
 
+// // svg -> IconFont 변환
+// export function svgsToSvgFont(svgs: any, options: any) {
+//   let result = '';
+//   const fontStream = new SVGIcons2SVGFontStream(options)
+//     .on('end', () => {
+//       console.log('RESULT: ', result);
+//     })
+//     .on('data', (data) => {
+//       result += data;
+//       console.log('DATA:', data);
+//     })
+//     .on('error', (err) => console.log('ERROR:', err));
+
+//   for (const svg of svgs) {
+//     console.log('SVG: ', svg);
+//     // fs모듈
+//     const svgStream = new Readable();
+//     svgStream.push(svg.code);
+//     svgStream.push(null); // 왜 넣는거주ㅣ../?
+
+//     const glyph1 = svgStream;
+//     glyph1.metadata = {
+//       unicode: ['\uE001\uE002'],
+//       name: 'icon1',
+//     };
+
+//     fontStream.write(glyph1);
+//     fontStream.write(svgStream);
+//   }
+
+//   fontStream.end();
+// }
+
+// Function to create a Readable stream with metadata from a string
+function createStreamFromString(
+  str: string,
+  metadata: { unicode: string[]; name: string }
+): ReadableWithMetadata {
+  const stream = new Readable({
+    read() {}, // Implement the read method to avoid the "_read" not implemented error
+  }) as ReadableWithMetadata;
+  stream.push(str);
+  stream.push(null); // End of the stream
+  stream.metadata = metadata;
+  return stream;
+}
+
 // svg -> IconFont 변환
-export function svgsToSvgFont(svgs: any, options: any) {
-  let result = '';
-  const fontStream = new SVGIcons2SVGFontStream(options)
-    .on('end', () => {
-      console.log('RESULT: ', result);
-    })
-    .on('data', (data) => {
-      result += data;
-      console.log('DATA:', data);
-    })
-    .on('error', (err) => console.log('ERROR:', err));
+export async function svgsToSvgFont(svgs: any, options: any) {
+  let fontData = '';
+  const fontStream = new SVGIcons2SVGFontStream(options);
+  const fontDataCollector = new Writable({
+    write(chunk, encoding, callback) {
+      fontData += chunk.toString();
+      callback();
+    },
+  });
+
+  fontStream
+    .pipe(fontDataCollector)
+    .on('finish', () => console.log('Font successfully created!'))
+    .on('error', (err) => console.log('stream err on generate.ts 88', err));
 
   for (const svg of svgs) {
-    console.log('SVG: ', svg);
-    // fs모듈
-    const svgStream = new Readable();
-    svgStream.push(svg.code);
-    svgStream.push(null); // 왜 넣는거주ㅣ../?
-
-    fontStream.write(svgStream);
+    // console.log('SVG: ', svg);
+    const glyph = createStreamFromString(svg.code, {
+      unicode: ['\uE001'],
+      name: svg.name,
+    });
+    fontStream.write(glyph);
   }
 
   fontStream.end();
+
+  // Capture the output of SVGIcons2SVGFontStream into a buffer
+  const buffers: Buffer[] = [];
+  fontStream.on('data', (chunk) => buffers.push(chunk));
+  await new Promise((resolve) => fontStream.on('end', resolve));
+
+  const svgFontBuffer = Buffer.concat(buffers);
+
+  const fonts = await webfontsGenerator({
+    files: [svgFontBuffer],
+    fontName: 'testName',
+    types: ['ttf', 'woff', 'woff2', 'eot', 'svg'],
+    writeFiles: false, // Do not write to disk
+  });
 }
