@@ -44,4 +44,21 @@
   border-radius: 15px;
   background-color: black;
   color: white;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.count {
+  display: flex;
+  text-align: center;
+  display: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  align-items: center;
+  justify-content: center;
 }
