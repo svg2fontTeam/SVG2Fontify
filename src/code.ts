@@ -3,7 +3,7 @@
 // You can access browser APIs in the <script> tag inside "ui.html" which has a
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 // Runs this code if the plugin is run in Figma
-
+import drag from './utils/drag';
 import { createVersionPage } from './utils/versionPage';
 
 if (figma.editorType === 'figma') {
@@ -16,6 +16,30 @@ if (figma.editorType === 'figma') {
   // Calls to "parent.postMessage" from within the HTML page will trigger this
   // callback. The callback will be passed the "pluginMessage" property of the
   // posted message.
+
+  console.log('플러그인이 시작되었습니다.');
+
+  // figma.on('selectionchange', async () => await drag());
+
+  // // const postMessage = () => {
+  // //   figma.ui.postMessage({
+  // //     data: figma.currentPage.selection.length,
+  // //   });
+
+  // // };
+  // // figma.on('selectionchange', postMessage);
+
+  // // postMessage();
+  // drag();
+
+  // eslint-disable-next-line no-inner-declarations
+
+  figma.on('selectionchange', () => {
+    drag();
+  });
+
+  drag();
+
   figma.ui.onmessage = (msg: { type: string; version: string }) => {
     if (msg.type === 'create-page') {
       createVersionPage(msg.version);
@@ -53,6 +77,7 @@ if (figma.editorType === 'figjam') {
   // Calls to "parent.postMessage" from within the HTML page will trigger this
   // callback. The callback will be passed the "pluginMessage" property of the
   // posted message.
+
   figma.ui.onmessage = (msg: { type: string; count: number }) => {
     // One way of distinguishing between different types of messages sent from
     // your HTML page is to use an object with a "type" property like this.
@@ -90,8 +115,6 @@ if (figma.editorType === 'figjam') {
 
     // Make sure to close the plugin when you're done. Otherwise the plugin will
     // keep running, which shows the cancel button at the bottom of the screen.
-    // figma.closePlugin();
+    figma.closePlugin();
   };
 }
-
-console.log('Hello, world! CI: 테스트가 실행 되어야 합니다.');

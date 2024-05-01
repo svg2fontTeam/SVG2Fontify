@@ -13,3 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Element with id 'test' not found.");
   }
 });
+document.addEventListener('DOMContentLoaded', () => {
+  window.onmessage = (event) => {
+    const pluginMessage = event.data.pluginMessage;
+
+    if (pluginMessage && pluginMessage.type === 'selected-svgs') {
+      const countBadge = document.getElementById('count-badge');
+      if (countBadge) {
+        countBadge.textContent = `${pluginMessage.svgs.length}`;
+      }
+    }
+  };
+});
