@@ -1,7 +1,7 @@
 import SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import webfontsGenerator from 'webfonts-generator';
 import { Readable, Writable } from 'stream';
-
+import saveZip from './download';
 interface ReadableWithMetadata extends Readable {
   metadata?: {
     unicode: string[];
@@ -112,4 +112,6 @@ export async function svgsToSvgFont(svgs: any, options: any) {
     types: ['ttf', 'woff', 'woff2', 'eot', 'svg'],
     writeFiles: false, // Do not write to disk
   });
+
+  saveZip(fonts);
 }
