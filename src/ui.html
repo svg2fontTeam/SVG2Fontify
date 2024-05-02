@@ -69,26 +69,9 @@
       </tbody>
     </table>
   </form>
-  <button class="GenerateBtn width100">Generate</button>
+  <button id="generate" class="GenerateBtn width100">
+    <span>Generate</span>
+    <span id="count-badge" class="count">0</span>
+  </button>
 </main>
-
-<script>
-  const isErr = true;
-
-  // 유효성검사 추가 함수.
-  function regexpTestAdd(id, html, isErr) {
-    html.addEventListener('keyup', () => {
-      const postVal = html.value;
-      parent.postMessage({ pluginMessage: { type: id, isErr, postVal } }, '*');
-      window.onmessage = (event) => {
-        const rtnVal = event.data.pluginMessage.rtnVal;
-        html.value = rtnVal;
-      };
-    });
-  }
-
-  regexpTestAdd('fontName', document.getElementById('fontName'), isErr);
-  regexpTestAdd('preClass', document.getElementById('preClass'), isErr);
-  regexpTestAdd('sufClass', document.getElementById('sufClass'), isErr);
-  regexpTestAdd('version', document.getElementById('version'), isErr);
-</script>
+<script src="./ui.ts"></script>
