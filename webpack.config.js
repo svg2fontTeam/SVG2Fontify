@@ -29,7 +29,15 @@ module.exports = (env, argv) => ({
   },
 
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
-  resolve: { extensions: ['.ts', '.js'] },
+  resolve: {
+    extensions: ['.ts', '.js'],
+    fallback: {
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/'),
+      process: require.resolve('process/browser'),
+      string_decoder: require.resolve('string_decoder'),
+    },
+  },
 
   output: {
     filename: '[name].js',
@@ -46,6 +54,10 @@ module.exports = (env, argv) => ({
     }),
     new HtmlInlineScriptPlugin({
       assetPreservePattern: [/ui.js/],
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser', // Ensures process is globally available
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
 });
