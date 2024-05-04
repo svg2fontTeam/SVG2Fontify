@@ -8,7 +8,7 @@ function saveZip(data: Record<string, any>) {
   const zip = new JSZip();
 
   for (const svg of svgs) {
-    zip?.folder('svg')?.file(`${svg.name}.svg`, svg.code);
+    zip?.folder('svg')?.file(`${svg.metadata.name}.svg`, svg.content);
   }
   zip.generateAsync({ type: 'blob' }).then(function (content) {
     saveAs(content, `${fontName}.zip`);
