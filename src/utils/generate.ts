@@ -96,10 +96,11 @@ export async function svgsToSvgFont(svgs: any, options: any) {
     .on('error', (err) => console.log('stream err on generate.ts 88', err));
 
   for (const svg of svgs) {
-    // console.log('SVG: ', svg);
-    const glyph = createStreamFromString(svg.code, {
+    console.log('SVG: ', svg);
+    const { metadata, content } = svg;
+    const glyph = createStreamFromString(content, {
       unicode: ['\uE001'],
-      name: svg.name,
+      name: metadata.name,
     });
     fontStream.write(glyph);
   }
@@ -107,11 +108,11 @@ export async function svgsToSvgFont(svgs: any, options: any) {
   fontStream.end();
 
   // Capture the output of SVGIcons2SVGFontStream into a buffer
-  const buffers: Buffer[] = [];
-  fontStream.on('data', (chunk) => buffers.push(chunk));
-  await new Promise((resolve) => fontStream.on('end', resolve));
+  // const buffers: Buffer[] = [];
+  // fontStream.on('data', (chunk) => buffers.push(chunk));
+  // await new Promise((resolve) => fontStream.on('end', resolve));
 
-  const svgFontBuffer = Buffer.concat(buffers);
+  // const svgFontBuffer = Buffer.concat(buffers);
 
   // const fonts = await webfontsGenerator({
   //   files: [svgFontBuffer],
@@ -130,6 +131,8 @@ export const iconToFont = async (svgList: any) => {
     fontHeight: 1000,
     normalize: true,
   });
+
+  console.log(svgFont, 'svgfont');
   const ttf = svgFontToTTF(svgFont as unknown as string);
 
   return {
