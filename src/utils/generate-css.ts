@@ -5,6 +5,7 @@ export const generateFontFaceScript = (fontName: string, fontPath: string) => {
       src: url("${fontPath}.ttf") format("truetype"),\n
       url("${fontPath}.eot") format("embedded-opentype"),\n
       url("${fontPath}.woff") format("woff");\n
+      url("${fontPath}.woff2") format("woff2");\n
       }\n`;
 };
 export const generateClassStyleScript = (prefix: string, fontName: string) => {
