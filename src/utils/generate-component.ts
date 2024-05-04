@@ -14,7 +14,7 @@ const toPascalCase = (str: string) => {
 const generateReactImport = (fontName: string) => {
   return `import React from 'react';\nimport from './${fontName}.css';\n`;
 };
-const generateReactEnum = (icons: Record<string, string>) => {
+const generateEnum = (icons: Record<string, string>) => {
   return `export enum Icons {\n${Object.entries(icons)
     .map(([name]) => `${toPascalCase(name)} = '${name}'`)
     .join(',\n')}\n}\n`;
@@ -29,7 +29,7 @@ export const generateReactFunctionComponent = ({
   icons,
 }: ComponentGeneratorParameter) => {
   return `${generateReactImport(fontName)}
-  ${generateReactEnum(icons)}
+  ${generateEnum(icons)}
   ${generateReactInterface()}
   export const Icon = ({name}: IconInterface) => <i className={\`${prefix} \${name}\`}></i>;`;
 };
@@ -40,7 +40,7 @@ export const generateReactClassComponent = ({
   icons,
 }: ComponentGeneratorParameter) => {
   return `${generateReactImport(fontName)}
-  ${generateReactEnum(icons)}
+  ${generateEnum(icons)}
   ${generateReactInterface()}
   export class Icon extends React.Component<IconInterface> {
     render() {
@@ -58,7 +58,7 @@ export const generateVueComponent = ({ fontName, prefix, icons }: ComponentGener
   <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   
-  ${generateReactEnum(icons)}
+  ${generateEnum(icons)}
   
   export default defineComponent({
     name: '${fontName}',
@@ -72,7 +72,7 @@ export const generateVueComponent = ({ fontName, prefix, icons }: ComponentGener
   </script>
   
   <style scoped>
-  @import './css/${fontName}.scss';
+  @import './${fontName}.css';
   </style>
     `;
 };

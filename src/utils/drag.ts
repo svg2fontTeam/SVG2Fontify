@@ -14,8 +14,6 @@ export default async function drag() {
   );
 
   if (isNotSvg.length > 0) {
-    console.log(isNotSvg.map((el) => el.type));
-    console.log('백터가 아닌 노드가 있습니다.');
     return;
   }
 
