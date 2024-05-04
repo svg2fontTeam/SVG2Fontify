@@ -36,6 +36,7 @@ module.exports = (env, argv) => ({
       buffer: require.resolve('buffer/'),
       process: require.resolve('process/browser'),
       string_decoder: require.resolve('string_decoder'),
+      path: require.resolve('path-browserify'),
     },
   },
 
@@ -57,6 +58,8 @@ module.exports = (env, argv) => ({
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser', // Ensures process is globally available
+    }),
+    new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
   ],
