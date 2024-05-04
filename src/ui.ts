@@ -4,12 +4,36 @@ import { saveAs } from 'file-saver';
 
 // figma.on 내에서 사용 불가
 function saveZip(data: Record<string, any>) {
-  const { fontName, svgs } = data;
+  const {
+    fontName,
+    svgs,
+    ttf,
+    woff,
+    // woff2,
+    eot,
+  } = data;
   const zip = new JSZip();
 
   for (const svg of svgs) {
     zip?.folder('svg')?.file(`${svg.metadata.name}.svg`, svg.content);
   }
+
+  if (ttf) {
+    zip?.folder('font')?.file(`${fontName}.ttf`, ttf);
+  }
+
+  if (woff) {
+    zip?.folder('font')?.file(`${fontName}.woff`, woff);
+  }
+
+  // if(woff2){
+  //   zip?.folder('font')?.file(`${fontName}.woff2`, item);
+  // }
+
+  if (eot) {
+    zip?.folder('font')?.file(`${fontName}.eot`, eot);
+  }
+
   zip.generateAsync({ type: 'blob' }).then(function (content) {
     saveAs(content, `${fontName}.zip`);
   });
