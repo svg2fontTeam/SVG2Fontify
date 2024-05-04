@@ -35,6 +35,7 @@ module.exports = (env, argv) => ({
       stream: require.resolve('stream-browserify'),
       buffer: require.resolve('buffer/'),
       process: require.resolve('process/browser'),
+      string_decoder: require.resolve('string_decoder'),
     },
   },
 
@@ -56,6 +57,7 @@ module.exports = (env, argv) => ({
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser', // Ensures process is globally available
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
 });

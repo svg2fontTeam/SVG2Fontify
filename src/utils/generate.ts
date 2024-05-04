@@ -1,7 +1,7 @@
 import SVGIcons2SVGFontStream from 'svgicons2svgfont';
-import webfontsGenerator from 'webfonts-generator';
+// import webfontsGenerator from 'webfonts-generator';
 import { Readable, Writable } from 'stream';
-import saveZip from './download';
+// import saveZip from './download';
 interface ReadableWithMetadata extends Readable {
   metadata?: {
     unicode: string[];
@@ -14,11 +14,18 @@ export async function generateSVGCode(target = figma) {
   // const svgs = getselectedItems(target);
   const svgs = target.currentPage.selection;
   const svgCodeList = await Promise.all(
-    svgs.map(async (svg) => {
-      const convertSVG = await svg.exportAsync({
+    svgs.map(async (svg, idx) => {
+      const glyph = await svg.exportAsync({
         format: 'SVG_STRING',
       });
-      return { name: svg.name, code: convertSVG };
+
+      return {
+        content: glyph,
+        metadata: {
+          name: svg.name,
+          unicode: [String.fromCharCode(0xea01 + idx)],
+        },
+      };
     })
   );
 
@@ -106,12 +113,30 @@ export async function svgsToSvgFont(svgs: any, options: any) {
 
   const svgFontBuffer = Buffer.concat(buffers);
 
-  const fonts = await webfontsGenerator({
-    files: [svgFontBuffer],
-    fontName: 'testName',
-    types: ['ttf', 'woff', 'woff2', 'eot', 'svg'],
-    writeFiles: false, // Do not write to disk
-  });
+  // const fonts = await webfontsGenerator({
+  //   files: [svgFontBuffer],
+  //   fontName: 'testName',
+  //   types: ['ttf', 'woff', 'woff2', 'eot', 'svg'],
+  //   writeFiles: false, // Do not write to disk
+  // });
 
-  saveZip(fonts);
+  // saveZip(fonts);
 }
+
+// TODO: 추후 타입 정의 필요 일단 급해서 any 처리
+export const iconToFont = async (svgList: any) => {
+  const svgFont = await svgsToSvgFont(svgList, {
+    fontName: 'test',
+    fontHeight: 1000,
+    normalize: true,
+  });
+  const ttf = svgFontToTTF(svgFont as unknown as string);
+
+  return {
+    ttf,
+  };
+};
+
+export const svgFontToTTF = (svgFont: string) => {
+  // return Buffer.from(svg2ttf(svgFont, { copyright: 'test' }).buffer);
+};

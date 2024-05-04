@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.onmessage = (msg: MessageEvent) => {
         //figma내에서 선택된 요소들 postMessage로 받아옴
         const { data } = msg.data.pluginMessage;
-        console.log(data);
+        console.log(data, 'data@@@@@');
         // zip으로 압축하여 저장
         saveZip(data);
       };
