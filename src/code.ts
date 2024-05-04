@@ -1,6 +1,6 @@
-import validationChkAction from './utils/input';
 import drag from './utils/drag';
 import { generateSVGCode, iconToFont, svgsToSvgFont } from './utils/generate';
+import validationChkAction from './utils/input';
 import { createVersionPage } from './utils/versionPage';
 
 figma.showUI(__html__, { width: 360, height: 640 });
