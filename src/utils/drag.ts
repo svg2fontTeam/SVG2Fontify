@@ -1,3 +1,5 @@
+import { PluginMessageEnum } from '../constants';
+
 export default async function drag() {
   const nodes = figma.currentPage.selection;
 
@@ -24,5 +26,5 @@ export default async function drag() {
     })
   );
 
-  figma.ui.postMessage({ type: 'selected-svgs', svgs: svgs });
+  figma.ui.postMessage({ type: PluginMessageEnum.SELECTED_SVGS, svgs: svgs });
 }
