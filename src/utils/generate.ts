@@ -1,10 +1,10 @@
-import SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import { Readable, Writable } from 'stream';
 import svg2ttf from 'svg2ttf';
+import SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import ttf2eot from 'ttf2eot';
 import ttf2woff from 'ttf2woff';
-import { FontOptionsType, ReadableWithMetadata, SVGListType } from '../types';
 import { UNICODE } from '../constants';
+import { FontOptionsType, ReadableWithMetadata, SVGListType } from '../types';
 // import ttf2woff2 from 'ttf2woff2';
 
 function createStreamFromString(
