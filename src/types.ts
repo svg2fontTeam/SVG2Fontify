@@ -20,3 +20,18 @@ export type FontOptionsType = {
   fontHeight: number;
   normalize: boolean;
 };
+
+export type RegexpObj = {
+  id: string;
+  postVal: string;
+};
+
+export type data = {
+  fontName: string;
+  preClass: string;
+  sufClass: string;
+  version: string;
+  react: boolean;
+  vue: boolean;
+  css: boolean;
+};

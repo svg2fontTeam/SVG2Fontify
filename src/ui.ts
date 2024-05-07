@@ -39,11 +39,56 @@ function saveZip(data: Record<string, any>) {
   });
 }
 
+// 유효성검사 추가 함수.
+function regexpTestAdd(id: string, html: HTMLInputElement) {
+  html.addEventListener('keyup', () => {
+    const postVal = html.value;
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: PluginMessageEnum.CHECK_VALUE,
+          data: { id: id, postVal: postVal },
+        },
+      },
+      '*'
+    );
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const testButton = document.getElementById('generate');
+  const fontNameInput = document.getElementById('fontName') as HTMLInputElement;
+  const preClassInput = document.getElementById('preClass') as HTMLInputElement;
+  const sufClassInput = document.getElementById('sufClass') as HTMLInputElement;
+  const versionInput = document.getElementById('version') as HTMLInputElement;
+  const reactChk = document.getElementById('react') as HTMLInputElement;
+  const vueChk = document.getElementById('vue') as HTMLInputElement;
+  const cssChk = document.getElementById('css') as HTMLInputElement;
+
+  regexpTestAdd('fontName', fontNameInput);
+  regexpTestAdd('preClass', preClassInput);
+  regexpTestAdd('sufClass', sufClassInput);
+  regexpTestAdd('version', versionInput);
+
   if (testButton) {
     testButton.onclick = () => {
-      parent.postMessage({ pluginMessage: { type: PluginMessageEnum.SUBMIT, data: {} } }, '*');
+      parent.postMessage(
+        {
+          pluginMessage: {
+            type: PluginMessageEnum.SUBMIT,
+            data: {
+              fontName: fontNameInput.value,
+              preClass: preClassInput.value,
+              sufClass: sufClassInput.value,
+              version: versionInput.value,
+              react: reactChk.checked,
+              vue: vueChk.checked,
+              css: cssChk.checked,
+            },
+          },
+        },
+        '*'
+      );
     };
   } else {
     console.error("Element with id 'test' not found.");
@@ -62,6 +107,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (pluginMessage.type === PluginMessageEnum.SAVE_ICONFONT) {
       saveZip(pluginMessage.data);
+    }
+    if (pluginMessage.type === PluginMessageEnum.CHECKED_VALUE) {
+      const rtnVal = pluginMessage.data.rtnVal;
+      if (pluginMessage.data.id === 'fontName') {
+        fontNameInput.value = rtnVal;
+      } else if (pluginMessage.data.id === 'preClass') {
+        preClassInput.value = rtnVal;
+      } else if (pluginMessage.value === 'sufClass') {
+        sufClassInput.value = rtnVal;
+      } else {
+        versionInput.value = rtnVal;
+      }
     }
   };
 });
