@@ -9,6 +9,6 @@ describe('Input validation', () => {
     const rtnVal = validationChkAction(inputVal, isErr, expectVal);
 
     expect(rtnVal).toBe(expectVal);
-    // expect(figma.notify).toHaveBeenCalled();??
+    // expect(figma.notify).toHaveBeenCalled();
   });
 });

@@ -78,10 +78,7 @@ export async function svgsToSvgFont(svgs: any, options: any) {
     for (const svg of svgs) {
       console.log('SVG: ', svg);
       const { metadata, content } = svg;
-      const glyph = createStreamFromString(content, {
-        unicode: ['\uE001'],
-        name: metadata.name,
-      });
+      const glyph = createStreamFromString(content, metadata);
       fontStream.write(glyph);
     }
 

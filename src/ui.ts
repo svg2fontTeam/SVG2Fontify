@@ -39,13 +39,55 @@ function saveZip(data: Record<string, any>) {
   });
 }
 
+// 유효성검사 추가 함수.
+function regexpTestAdd(id: string, html: HTMLInputElement, isErr: boolean) {
+  html.addEventListener('keyup', () => {
+    const postVal = html.value;
+    parent.postMessage({ pluginMessage: { type: id, isErr, postVal } }, '*');
+    window.onmessage = (event) => {
+      const rtnVal = event.data.pluginMessage.rtnVal;
+      html.value = rtnVal;
+    };
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // btn click event
+  const fontNameEle = document.getElementById('fontName') as HTMLInputElement;
+  const preClassEle = document.getElementById('preClass') as HTMLInputElement;
+  const sufClassEle = document.getElementById('sufClass') as HTMLInputElement;
+  const versionEle = document.getElementById('version') as HTMLInputElement;
   const testButton = document.getElementById('generate');
+  const reactEle = document.getElementById('react') as HTMLInputElement;
+  const vueEle = document.getElementById('vue') as HTMLInputElement;
+  const cssEle = document.getElementById('css') as HTMLInputElement;
+
+  regexpTestAdd('fontName', fontNameEle, true);
+  regexpTestAdd('preClass', preClassEle, true);
+  regexpTestAdd('sufClass', sufClassEle, true);
+  regexpTestAdd('version', versionEle, true);
+
   if (testButton) {
     testButton.onclick = () => {
       parent.postMessage(
         { pluginMessage: { type: 'create-page', version: '버전 페이지입니다' } },
+        '*'
+      );
+      parent.postMessage(
+        {
+          pluginMessage: {
+            type: 'post-input',
+            arrInput: {
+              fontName: fontNameEle.value,
+              preClass: preClassEle.value,
+              sufClass: sufClassEle.value,
+              version: versionEle.value,
+              react: reactEle.value,
+              vue: vueEle.value,
+              css: cssEle.value,
+            },
+          },
+        },
         '*'
       );
     };

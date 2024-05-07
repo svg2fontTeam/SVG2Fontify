@@ -1,4 +1,4 @@
-export default function validationChkAction(type: string, isErr: boolean, postVal: string) {
+export default function validationChkAction(type: string, postVal: string) {
   const message =
     type === 'version'
       ? "Only numbers and '.' are allowed as input"
@@ -9,7 +9,7 @@ export default function validationChkAction(type: string, isErr: boolean, postVa
       : /[`~!#$%^&*()_|+\-=?;:'"<>{}[\]\\/\s]/gim;
   if (regexp.test(postVal)) {
     const rtnVal = postVal.replace(regexp, '');
-    figma.notify(message, { error: isErr, timeout: 2000 });
+    figma.notify(message, { error: true, timeout: 2000 });
     return rtnVal;
   }
 
