@@ -1,17 +1,11 @@
-import SVGIcons2SVGFontStream from 'svgicons2svgfont';
-// import webfontsGenerator from 'webfonts-generator';
 import { Readable, Writable } from 'stream';
 import svg2ttf from 'svg2ttf';
+import SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import ttf2eot from 'ttf2eot';
 import ttf2woff from 'ttf2woff';
+import { UNICODE } from '../constants';
+import { FontOptionsType, ReadableWithMetadata, SVGListType } from '../types';
 // import ttf2woff2 from 'ttf2woff2';
-// import saveZip from './download';
-interface ReadableWithMetadata extends Readable {
-  metadata?: {
-    unicode: string[];
-    name: string;
-  };
-}
 
 function createStreamFromString(
   str: string,
@@ -28,7 +22,6 @@ function createStreamFromString(
 
 // figma node -> svg로 변환
 export async function generateSVGCode(target = figma) {
-  // const svgs = getselectedItems(target);
   const svgs = target.currentPage.selection;
   const svgCodeList = await Promise.all(
     svgs.map(async (svg, idx) => {
@@ -40,7 +33,7 @@ export async function generateSVGCode(target = figma) {
         content: glyph,
         metadata: {
           name: svg.name,
-          unicode: [String.fromCharCode(0xea01 + idx)],
+          unicode: [String.fromCharCode(UNICODE + idx)],
         },
       };
     })
@@ -50,10 +43,10 @@ export async function generateSVGCode(target = figma) {
 }
 
 // Function to create a Readable stream with metadata from a string
-export async function svgsToSvgFont(svgs: any, options: any) {
+export async function svgsToSvgFont(svgs: SVGListType[], fontOptions: FontOptionsType) {
   console.log(svgs);
   let fontData = '';
-  const fontStream = new SVGIcons2SVGFontStream(options);
+  const fontStream = new SVGIcons2SVGFontStream(fontOptions);
   const fontDataCollector = new Writable({
     write(chunk, encoding, callback) {
       fontData += chunk.toString();
@@ -63,22 +56,24 @@ export async function svgsToSvgFont(svgs: any, options: any) {
   return new Promise((resolve, reject) => {
     let result = '';
     fontStream
-      // .pipe(fontDataCollector)
       .on('data', (chunk) => {
-        console.log(chunk, 'chunk');
         result += chunk;
       })
       .on('finish', () => {
-        console.log(result, 'result');
         resolve(result);
       })
       // .on('end', () => resolve(result))
-      .on('error', (err) => console.log('stream err on generate.ts 88', err));
+      .on('error', (err) => {
+        reject();
+        console.log('stream err on generate.ts 88', err);
+      });
 
     for (const svg of svgs) {
-      console.log('SVG: ', svg);
       const { metadata, content } = svg;
-      const glyph = createStreamFromString(content, metadata);
+      const glyph = createStreamFromString(content, {
+        unicode: metadata.unicode,
+        name: metadata.name,
+      });
       fontStream.write(glyph);
     }
 
@@ -86,15 +81,12 @@ export async function svgsToSvgFont(svgs: any, options: any) {
   });
 }
 
-// TODO: 추후 타입 정의 필요 일단 급해서 any 처리
-export const iconToFont = async (svgList: any) => {
+export const iconToFont = async (svgList: SVGListType[], fontOptions: FontOptionsType) => {
   const svgFont = await svgsToSvgFont(svgList, {
-    fontName: 'test',
-    fontHeight: 1000,
-    normalize: true,
+    ...fontOptions,
   });
 
-  const ttf = svgFontToTTF(svgFont as any);
+  const ttf = svgFontToTTF(svgFont as string);
   const eot = svgFontToEOT(ttf);
   const woff = svgFontToWOFF(ttf);
   // const woff2 = svgFontToWOFF2(ttf);
