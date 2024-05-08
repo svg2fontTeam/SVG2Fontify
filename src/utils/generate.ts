@@ -5,6 +5,7 @@ import ttf2eot from 'ttf2eot';
 import ttf2woff from 'ttf2woff';
 import { UNICODE } from '../constants';
 import { FontOptionsType, ReadableWithMetadata, SVGListType } from '../types';
+import { RegexpName } from '../constants';
 // import ttf2woff2 from 'ttf2woff2';
 
 function createStreamFromString(
@@ -29,10 +30,15 @@ export async function generateSVGCode(target = figma) {
         format: 'SVG_STRING',
       });
 
+      let regTf = false;
+      if (RegexpName.test(svg.name)) {
+        regTf = true;
+      }
+
       return {
         content: glyph,
         metadata: {
-          name: svg.name,
+          name: regTf ? svg.name.replace(RegexpName, '') : svg.name,
           unicode: [String.fromCharCode(UNICODE + idx)],
         },
       };
