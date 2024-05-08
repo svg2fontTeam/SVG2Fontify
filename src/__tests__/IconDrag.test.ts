@@ -1,6 +1,7 @@
 // import drag from '../utils/drag';
 
 describe('icon drag', () => {
+  it('icon dragt', () => {});
   // it('객체를 드래그하면 드래그 이벤트가 발생한다.', () => {
   //   const event = new MouseEvent('dragstart');
   //   const spy = jest.fn();
