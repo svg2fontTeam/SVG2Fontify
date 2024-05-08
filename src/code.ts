@@ -43,6 +43,7 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
       css = '',
     } = figmaUIData;
 
+
     if (version) {
       createVersionPage('title', figma);
     }
