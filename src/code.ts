@@ -20,8 +20,8 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
   if (msg.type === PluginMessageEnum.SUBMIT) {
     // TODO: 추후 version, fontName input 데이터로 분기
     const version = msg.data.version || false;
-    const fontName = msg.data.fontName;
-    const preClass = msg.data.preClass || '';
+    const fontName = msg.data.fontName || 'name';
+    const preClass = msg.data.preClass || 'pre';
     const sufClass = msg.data.sufClass || '';
     const react = msg.data.react;
     const vue = msg.data.vue;
