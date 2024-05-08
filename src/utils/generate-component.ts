@@ -4,26 +4,26 @@ type ComponentGeneratorParameter = {
   icons: Record<string, string>;
 };
 
-const toPascalCase = (str: string) => {
+export const toPascalCase = (str: string) => {
   return str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     ?.map((x) => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())
     .join('');
 };
 
-const generateReactImport = (fontName: string) => {
+export const generateReactImport = (fontName: string) => {
   return `import React from 'react';\nimport from './${fontName}.css';\n`;
 };
-const generateEnum = (icons: Record<string, string>) => {
+export const generateEnum = (icons: Record<string, string>) => {
   return `export enum Icons {\n${Object.entries(icons)
     .map(([name]) => `${toPascalCase(name)} = '${name}'`)
     .join(',\n')}\n}\n`;
 };
-const generateReactInterface = () => {
+export const generateReactInterface = () => {
   return `export interface IconInterface {\nname: Icons;\n}\n`;
 };
 
-export const generateReactFunctionComponent = ({
+export const generateReactFunctionComponentFile = ({
   fontName,
   prefix,
   icons,
@@ -34,7 +34,7 @@ export const generateReactFunctionComponent = ({
   export const Icon = ({name}: IconInterface) => <i className={\`${prefix} \${name}\`}></i>;`;
 };
 
-export const generateReactClassComponent = ({
+export const generateReactClassComponentFile = ({
   fontName,
   prefix,
   icons,
@@ -49,7 +49,11 @@ export const generateReactClassComponent = ({
   }`;
 };
 
-export const generateVueComponent = ({ fontName, prefix, icons }: ComponentGeneratorParameter) => {
+export const generateVueComponentFile = ({
+  fontName,
+  prefix,
+  icons,
+}: ComponentGeneratorParameter) => {
   return `
   <template>
     <i :class="\`${prefix} \${name}\`"></i>

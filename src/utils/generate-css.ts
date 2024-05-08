@@ -1,12 +1,12 @@
 export const generateFontFaceScript = (fontName: string, fontPath: string) => {
   return `
-    @font-face {\n
-      font-family: '${fontName}';\n
-      src: url("${fontPath}.ttf") format("truetype"),\n
-      url("${fontPath}.eot") format("embedded-opentype"),\n
-      url("${fontPath}.woff") format("woff");\n
-      url("${fontPath}.woff2") format("woff2");\n
-      }\n`;
+  @font-face {
+    font-family: '${fontName}';
+    src: url("${fontPath}.ttf") format("truetype"),
+    url("${fontPath}.eot") format("embedded-opentype"),
+    url("${fontPath}.woff") format("woff");
+    url("${fontPath}.woff2") format("woff2");
+    }`;
 };
 export const generateClassStyleScript = (prefix: string, fontName: string) => {
   return `
@@ -21,10 +21,19 @@ export const generateClassStyleScript = (prefix: string, fontName: string) => {
 };
 export const generateIconStyleScript = (prefix: string, icon: Array<Record<string, string>>) => {
   return icon.map(({ name, unicode }) => {
-    return `
-      .${prefix}-${name}:before {\n
-        content: "\\${unicode}";\n
-      }\n
-      .${prefix}-${name}:before { content: "\\${unicode}"; }`;
+    return `.${prefix}-${name}:before { content: "\\${unicode}"; }`;
   });
+};
+
+export const generateCssFile = (
+  prefix: string,
+  fontName: string,
+  fontPath: string,
+  icon: Array<Record<string, string>>
+) => {
+  return `
+    ${generateFontFaceScript(fontName, fontPath)}
+    ${generateClassStyleScript(prefix, fontName)}
+    ${generateIconStyleScript(prefix, icon)}
+  `;
 };
