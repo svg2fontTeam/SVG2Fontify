@@ -26,7 +26,7 @@ export type RegexpObj = {
   postVal: string;
 };
 
-export type data = {
+export type Data = {
   fontName: string;
   preClass: string;
   sufClass: string;
@@ -34,4 +34,11 @@ export type data = {
   react: boolean;
   vue: boolean;
   css: boolean;
+};
+
+export type ConvertFont = {
+  name: string;
+  prefix: string;
+  suffix: string;
+  svgList: SVGListType[];
 };

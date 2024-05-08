@@ -11,6 +11,8 @@ function saveZip(data: Record<string, any>) {
     woff,
     // woff2,
     eot,
+    html,
+    css,
   } = data;
   const zip = new JSZip();
 
@@ -32,6 +34,15 @@ function saveZip(data: Record<string, any>) {
 
   if (eot) {
     zip?.folder('font')?.file(`${fontName}.eot`, eot);
+  }
+
+  if (html) {
+    const blob: Blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    zip?.file('fontView.html', blob);
+  }
+
+  if (css) {
+    zip?.folder('css')?.file(`${fontName}.css`, css);
   }
 
   zip.generateAsync({ type: 'blob' }).then(function (content) {

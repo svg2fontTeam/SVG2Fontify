@@ -1,11 +1,12 @@
-export const generateFontFaceScript = (fontName: string, fontPath: string) => {
+import { SVGListType } from '../types';
+export const generateFontFaceScript = (fontName: string) => {
   return `
     @font-face {\n
       font-family: '${fontName}';\n
-      src: url("${fontPath}.ttf") format("truetype"),\n
-      url("${fontPath}.eot") format("embedded-opentype"),\n
-      url("${fontPath}.woff") format("woff");\n
-      url("${fontPath}.woff2") format("woff2");\n
+      src: url("../font/${fontName}.ttf") format("truetype"),\n
+      url("../font/${fontName}.eot") format("embedded-opentype"),\n
+      url("../font/${fontName}.woff") format("woff");\n
+      url("../font/${fontName}.woff2") format("woff2");\n
       }\n`;
 };
 export const generateClassStyleScript = (prefix: string, fontName: string) => {
@@ -19,12 +20,12 @@ export const generateClassStyleScript = (prefix: string, fontName: string) => {
       }\n
   `;
 };
-export const generateIconStyleScript = (prefix: string, icon: Array<Record<string, string>>) => {
-  return icon.map(({ name, unicode }) => {
+export const generateIconStyleScript = (prefix: string, suffix: string, svg: SVGListType[]) => {
+  return svg.map((svgData) => {
     return `
-      .${prefix}-${name}:before {\n
-        content: "\\${unicode}";\n
+      .${prefix}-${svgData.metadata.name}:before {\n
+        content: "\\${svgData.metadata.unicode}";\n
       }\n
-      .${prefix}-${name}:before { content: "\\${unicode}"; }`;
+      .${prefix}-${svgData.metadata.name}-${suffix}:before { content: "\\${svgData.metadata.unicode}"; }`;
   });
 };
