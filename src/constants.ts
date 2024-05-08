@@ -7,3 +7,7 @@ export const PluginMessageEnum = {
 } as const;
 
 export const UNICODE = 0xea01;
+
+export const RegexpName = /[`~!#$%^&*()_|+\-=,.?;:'"<>{}[\]\\/\s]/gim;
+
+export const RegexpVersion = /[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣`~!@#$%^&*()_|+\-=,?;:'"<>{}[\]\\/\s]/gim;

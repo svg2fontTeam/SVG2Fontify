@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fontNameInput.value = rtnVal;
       } else if (pluginMessage.data.id === 'preClass') {
         preClassInput.value = rtnVal;
-      } else if (pluginMessage.value === 'sufClass') {
+      } else if (pluginMessage.data.id === 'sufClass') {
         sufClassInput.value = rtnVal;
       } else {
         versionInput.value = rtnVal;
