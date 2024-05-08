@@ -1,5 +1,5 @@
 import { PluginMessageEnum } from './constants';
-import { RegexpObj, Data, ConvertFont, FontOptionsType, FontStreamType } from './types';
+import { Data, ConvertFont, FontOptionsType, FontStreamType } from './types';
 import drag from './utils/drag';
 import { generateSVGCode, iconToFont } from './utils/generate';
 import { generateCssFile } from './utils/generate-css';
@@ -21,7 +21,7 @@ const errorHandler = (msg: keyof typeof ERROR_MESSAGE) => {
 figma.showUI(__html__, { width: 360, height: 640 });
 console.log('플러그인이 시작되었습니다.');
 
-figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }) => {
+figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
   console.log('ON_MSG : ', msg);
   const { data: figmaUIData } = msg;
   if (!figmaUIData) {
@@ -42,7 +42,6 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
       vue = false,
       css = '',
     } = figmaUIData;
-
 
     if (version) {
       createVersionPage('title', figma);
@@ -83,10 +82,10 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
   }
 
   if (msg.type === PluginMessageEnum.CHECK_VALUE) {
-    const rtnVal = validationChkAction(msg.regObj.id, msg.regObj.postVal);
+    const rtnVal = validationChkAction(msg.data.id, msg.data.postVal);
     figma.ui.postMessage({
       type: PluginMessageEnum.CHECKED_VALUE,
-      data: { id: msg.regObj.id, rtnVal: rtnVal },
+      data: { id: msg.data.id, rtnVal: rtnVal },
     });
   }
 };

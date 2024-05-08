@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (pluginMessage.type === PluginMessageEnum.CHECKED_VALUE) {
       const rtnVal = pluginMessage.data.rtnVal;
+      console.log('rtnVal', rtnVal);
       if (pluginMessage.data.id === 'fontName') {
         fontNameInput.value = rtnVal;
       } else if (pluginMessage.data.id === 'preClass') {
