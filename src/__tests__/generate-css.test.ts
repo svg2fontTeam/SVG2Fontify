@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+import { SVGListType } from '../types';
 import {
   generateFontFaceScript,
   generateClassStyleScript,
@@ -16,14 +17,13 @@ describe('CSS Generation', () => {
   describe('글꼴을 생성한다.', () => {
     it('should generate a correct font-face CSS rule', () => {
       const fontName = 'MyFont';
-      const fontPath = '/path/to/font';
-      const output = generateFontFaceScript(fontName, fontPath);
+      const output = generateFontFaceScript(fontName);
       checkProperties(output, [
         "font-family: 'MyFont';",
-        'src: url("/path/to/font.ttf") format("truetype")',
-        'url("/path/to/font.eot") format("embedded-opentype")',
-        'url("/path/to/font.woff") format("woff")',
-        'url("/path/to/font.woff2") format("woff2")',
+        'src: url("../font/MyFont.ttf") format("truetype")',
+        'url("../font/MyFont.eot") format("embedded-opentype")',
+        'url("../font/MyFont.woff") format("woff")',
+        'url("../font/MyFont.woff2") format("woff2")',
       ]);
     });
   });
@@ -47,15 +47,22 @@ describe('CSS Generation', () => {
   describe('아이콘배열을 스타일 배열을 생성한다.', () => {
     it('should generate correct icon style CSS rules', () => {
       const prefix = 'icon';
+      const suffix = 'svg';
+      // {
+      //   content: string;
+      //   metadata: {
+      //       unicode: string[];
+      //       name: string;
+      //   };
       const icons = [
-        { name: 'home', unicode: 'e001' },
-        { name: 'settings', unicode: 'e002' },
-      ];
+        { content: '', metadata: { name: 'home', unicode: ['e001'] } },
+        { content: '', metadata: { name: 'settings', unicode: ['e002'] } },
+      ] as SVGListType[];
       const expectedOutput = [
-        `.icon-home:before { content: "\\e001"; }`,
-        `.icon-settings:before { content: "\\e002"; }`,
+        `.icon-home-svg:before { content: "\\e001"; }`,
+        `.icon-settings-svg:before { content: "\\e002"; }`,
       ];
-      const output = generateIconStyleScript(prefix, icons);
+      const output = generateIconStyleScript(prefix, suffix, icons);
       expect(output).toEqual(expectedOutput);
     });
   });
@@ -64,15 +71,13 @@ describe('CSS Generation', () => {
     it('should generate a correct CSS file', () => {
       const prefix = 'icon';
       const fontName = 'MyFont';
-      const fontPath = '/path/to/font';
+      const suffix = 'svg';
       const icons = [
-        { name: 'home', unicode: 'e001' },
-        { name: 'settings', unicode: 'e002' },
-      ];
-
+        { content: '', metadata: { name: 'home', unicode: ['e001'] } },
+        { content: '', metadata: { name: 'settings', unicode: ['e002'] } },
+      ] as SVGListType[];
       // CSS 파일 생성
-      const cssContent = generateCssFile(prefix, fontName, fontPath, icons);
-
+      const cssContent = generateCssFile(prefix, fontName, suffix, icons);
       // jsdom 환경 설정
       const dom = new JSDOM(
         `
@@ -80,8 +85,8 @@ describe('CSS Generation', () => {
       <html>
       <head></head>
       <body>
-        <i class="icon ${prefix}-home">a</i>
-        <i class="icon ${prefix}-settings"/>
+      <i class="${prefix} ${prefix}-home-${suffix}"></i>
+      <i class="${prefix} ${prefix}-settings-${suffix}"></i>
       </body>
       </html>
     `,
@@ -91,7 +96,20 @@ describe('CSS Generation', () => {
         }
       );
 
-      // 스타일 태그 추가
+      const styleElement = dom.window.document.createElement('style');
+      styleElement.textContent = cssContent;
+      dom.window.document.head.appendChild(styleElement);
+
+      // 스타일이 적용된 요소 선택
+      const homeIcon = document.querySelector(`.${prefix}.${prefix}-home-${suffix}`);
+      const settingsIcon = document.querySelector(`.${prefix}.${prefix}-settings-${suffix}`);
+      // 가상 요소 스타일 계산
+      const homeStyle = dom.window.getComputedStyle(homeIcon, '::before');
+      const settingsStyle = dom.window.getComputedStyle(settingsIcon, '::before');
+
+      // 기대 결과 검증
+      expect(homeStyle.content).toBe('"\\e001"');
+      expect(settingsStyle.content).toBe('"\\e002"');
     });
   });
 });
