@@ -1,5 +1,5 @@
 import { PluginMessageEnum } from './constants';
-import { RegexpObj, Data, ConvertFont, FontOptionsType } from './types';
+import { RegexpObj, Data, ConvertFont, FontOptionsType, FontStreamType } from './types';
 import drag from './utils/drag';
 import { generateSVGCode, iconToFont } from './utils/generate';
 import { generateCssFile } from './utils/generate-css';
@@ -31,20 +31,12 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
 
   if (msg.type === PluginMessageEnum.SUBMIT) {
     // TODO: 추후 version, fontName input 데이터로 분기
-    // const version = msg.data.version || false;
-    // const fontName = msg.data.fontName;
-    // const preClass = msg.data.preClass || '';
-    // const sufClass = msg.data.sufClass || '';
-    // const react = msg.data.react;
-    // const vue = msg.data.vue;
-    // const css = msg.data.css;
-
     //FIXME 구조분해할당 사용 -> 더 간결하게 변경, falsy에 대한 핸들링 보다 초기값에 대한 핸들링을 바로 직관적으로 할 수 있습니다.
     const { data: figmaUIData } = msg;
     const {
       version = false,
-      fontName = '',
-      preClass = '',
+      fontName = 'SVG2Fontify',
+      preClass = 'icon',
       sufClass = '',
       react = false,
       vue = false,
@@ -57,18 +49,6 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
     const svgList = await generateSVGCode(figma);
 
     //FIXME 임시변수제거 -> 순간 그 변수를 CRUD하는 사이드 이팩트 효과가 날 수 있습니다.
-    // const inputValue: ConvertFont = {
-    //   name: fontName,
-    //   prefix: preClass,
-    //   suffix: sufClass,
-    //   svgList: svgList,
-    // };
-    // const fontOptions = {
-    //   fontName,
-    //   fontHeight: 1000,
-    //   normalize: true,
-    // };
-
     const fontStream = await iconToFont(svgList, {
       fontName,
       fontHeight: 1000,
@@ -81,16 +61,11 @@ figma.ui.onmessage = async (msg: { type: string; regObj: RegexpObj; data: Data }
       svgList: svgList,
     } as unknown as ConvertFont);
 
-    // const postData: any = { svgs: svgList, fontName, html: htmlFile, ...fontStream };
-
-    // if (css) {
-    //   //XXX css 파일 생성 한개 함수로 변경
-    //   const cssFile = generateCssFile(preClass, fontName, sufClass, svgList);
-    //   postData.css = cssFile;
-    // }
-
-    const postData = { svgs: svgList, fontName, html: htmlFile, ...fontStream } as unknown as {
-      [key: string]: string;
+    const postData: FontStreamType = {
+      svgs: svgList,
+      fontName,
+      html: htmlFile,
+      ...fontStream,
     };
 
     if (css) {
