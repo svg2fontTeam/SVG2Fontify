@@ -1,6 +1,6 @@
 import './ui.css';
-import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
 import { PluginMessageEnum } from './constants';
 
 function saveZip(data: Record<string, any>) {
@@ -67,7 +67,7 @@ function regexpTestAdd(id: string, html: HTMLInputElement) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const testButton = document.getElementById('generate');
+  const generateButton = document.getElementById('generate');
   const fontNameInput = document.getElementById('fontName') as HTMLInputElement;
   const preClassInput = document.getElementById('preClass') as HTMLInputElement;
   const sufClassInput = document.getElementById('sufClass') as HTMLInputElement;
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
   regexpTestAdd('sufClass', sufClassInput);
   regexpTestAdd('version', versionInput);
 
-  if (testButton) {
-    testButton.onclick = () => {
+  if (generateButton) {
+    generateButton.onclick = () => {
       parent.postMessage(
         {
           pluginMessage: {

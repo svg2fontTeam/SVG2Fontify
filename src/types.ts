@@ -14,6 +14,16 @@ export type SVGListType = {
     name: string;
   };
 };
+export type FontStreamType = {
+  svgs: SVGListType[];
+  fontName: string;
+  html: string;
+  css?: string;
+  svgFont: unknown;
+  ttf: Buffer;
+  eot: Buffer;
+  woff: Buffer;
+};
 
 export type FontOptionsType = {
   fontName: string;

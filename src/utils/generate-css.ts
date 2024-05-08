@@ -21,11 +21,21 @@ export const generateClassStyleScript = (prefix: string, fontName: string) => {
   `;
 };
 export const generateIconStyleScript = (prefix: string, suffix: string, svg: SVGListType[]) => {
-  return svg.map((svgData) => {
-    return `
-      .${prefix}-${svgData.metadata.name}:before {\n
-        content: "\\${svgData.metadata.unicode}";\n
-      }\n
-      .${prefix}-${svgData.metadata.name}-${suffix}:before { content: "\\${svgData.metadata.unicode}"; }`;
-  });
+  return svg.map(
+    (svgData) =>
+      `.${prefix}-${svgData.metadata.name}-${suffix}:before { content: "\\${svgData.metadata.unicode[0]}"; }`
+  );
+};
+
+export const generateCssFile = (
+  prefix: string,
+  fontName: string,
+  suffix: string,
+  icon: SVGListType[]
+) => {
+  return `
+    ${generateFontFaceScript(fontName)}
+    ${generateClassStyleScript(prefix, fontName)}
+    ${generateIconStyleScript(prefix, suffix, icon)}
+  `;
 };
