@@ -5,9 +5,9 @@ describe('Input validation', () => {
     const inputVal = '`~!@#$%';
     const expectVal = '@';
 
-    const rtnVal = validationChkAction(inputVal, expectVal);
+    const rtnVal = validationChkAction('fontName', inputVal);
 
     expect(rtnVal).toBe(expectVal);
-    // expect(figma.notify).toHaveBeenCalled();
+    expect(figma.notify).toHaveBeenCalled();
   });
 });

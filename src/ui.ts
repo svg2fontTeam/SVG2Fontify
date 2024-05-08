@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const reactChk = document.getElementById('react') as HTMLInputElement;
   const vueChk = document.getElementById('vue') as HTMLInputElement;
   const cssChk = document.getElementById('css') as HTMLInputElement;
+  const countBadge = document.getElementById('count-badge');
 
   regexpTestAdd('fontName', fontNameInput);
   regexpTestAdd('preClass', preClassInput);
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
               react: reactChk.checked,
               vue: vueChk.checked,
               css: cssChk.checked,
+              count: countBadge?.textContent,
             },
           },
         },
@@ -111,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('MSG_DATA :', pluginMessage);
 
     if (pluginMessage && pluginMessage.type === PluginMessageEnum.SELECTED_SVGS) {
-      const countBadge = document.getElementById('count-badge');
       if (countBadge) {
         countBadge.textContent = `${pluginMessage.svgs.length}`;
       }

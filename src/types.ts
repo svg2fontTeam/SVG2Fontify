@@ -39,6 +39,7 @@ export type Data = {
   react: boolean;
   vue: boolean;
   css: boolean;
+  count: string;
   id: string;
   postVal: string;
 };
