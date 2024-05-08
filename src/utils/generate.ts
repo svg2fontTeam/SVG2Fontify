@@ -21,24 +21,47 @@ function createStreamFromString(
   return stream;
 }
 
+export function handleDuplicateNames(names: string[]) {
+  const nameCount: Record<string, number> = {};
+
+  names.forEach((name) => {
+    nameCount[name] = (nameCount[name] || 0) + 1;
+  });
+
+  const renamedNames = names.map((name) => {
+    if (nameCount[name] > 1) {
+      const count = nameCount[name] - 1;
+      nameCount[name]--;
+      return `${name}${count}`;
+    } else {
+      return name;
+    }
+  });
+  return renamedNames;
+}
+
 // figma node -> svg로 변환
 export async function generateSVGCode(target = figma) {
   const svgs = target.currentPage.selection;
+
+  const svgNames = svgs.map((svg) => svg.name);
+  const uniqueSvgNames = handleDuplicateNames(svgNames);
   const svgCodeList = await Promise.all(
     svgs.map(async (svg, idx) => {
+      const name = uniqueSvgNames[idx];
       const glyph: any = await svg.exportAsync({
         format: 'SVG_STRING',
       });
 
       let regTf = false;
-      if (RegexpName.test(svg.name)) {
+      if (RegexpName.test(name)) {
         regTf = true;
       }
 
       return {
         content: glyph,
         metadata: {
-          name: regTf ? svg.name.replace(RegexpName, '') : svg.name,
+          name: regTf ? name.replace(RegexpName, '') : name,
           unicode: [String.fromCharCode(UNICODE + idx)],
         },
       };
