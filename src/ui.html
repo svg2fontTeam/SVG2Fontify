@@ -8,23 +8,38 @@
         <tr>
           <td colspan="2">
             <div class="inputTitle">FONT NAME</div>
-            <input class="inputText width100" placeholder="Font name" />
+            <input
+              id="fontName"
+              class="inputText width100"
+              placeholder="Font name"
+              maxlength="255"
+            />
           </td>
         </tr>
         <tr>
           <td>
             <div class="inputTitle">CLASS PREFIX</div>
-            <input class="inputText width90" placeholder="Prefix for SVGs" />
+            <input
+              id="preClass"
+              class="inputText width90"
+              placeholder="Prefix for SVGs"
+              maxlength="50"
+            />
           </td>
           <td>
             <div class="inputTitle">CLASS SUFFIX</div>
-            <input class="inputText width90" placeholder="Suffix for SVGs" />
+            <input
+              id="sufClass"
+              class="inputText width90"
+              placeholder="Suffix for SVGs"
+              maxlength="50"
+            />
           </td>
         </tr>
         <tr>
           <td colspan="2">
             <div class="inputTitle">VERSION</div>
-            <input class="inputText width50" placeholder="Version" />
+            <input id="version" class="inputText width50" placeholder="Version" maxlength="50" />
           </td>
         </tr>
       </tbody>
@@ -39,20 +54,24 @@
         </tr>
         <tr>
           <td>
-            <input type="checkbox" id="react" />
+            <input type="checkbox" id="react" name="chk" />
             <label for="react" class="checkboxLabel">React(.tsx)</label>
           </td>
           <td>
-            <input type="checkbox" id="vue" />
+            <input type="checkbox" id="vue" name="chk" />
             <label for="vue" class="checkboxLabel">Vue(.vue)</label>
           </td>
           <td>
-            <input type="checkbox" id="sass" />
-            <label for="sass" class="checkboxLabel">Sass</label>
+            <input type="checkbox" id="css" name="chk" />
+            <label for="css" class="checkboxLabel">css</label>
           </td>
         </tr>
       </tbody>
     </table>
   </form>
-  <button class="GenerateBtn width100">Generate</button>
+  <button id="generate" class="GenerateBtn width100">
+    <span>Generate</span>
+    <span id="count-badge" class="count">0</span>
+  </button>
 </main>
+<script src="./ui.ts"></script>
