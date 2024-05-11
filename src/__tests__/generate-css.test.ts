@@ -1,10 +1,8 @@
-import { JSDOM } from 'jsdom';
 import { SVGListType } from '../types';
 import {
   generateFontFaceScript,
   generateClassStyleScript,
   generateIconStyleScript,
-  generateCssFile,
   checkProperties,
 } from '../utils/generate-css'; // Update the path as necessary
 
