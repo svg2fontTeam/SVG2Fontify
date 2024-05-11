@@ -1,5 +1,12 @@
 import { SVGListType } from '../types';
 import { addSufClass } from './generate-component';
+
+export const checkProperties = (output: string, properties: string[]) => {
+  properties.forEach((prop) => {
+    expect(output).toContain(prop);
+  });
+};
+
 export const generateFontFaceScript = (fontName: string) => {
   return `
     @font-face {\n

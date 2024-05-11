@@ -1,3 +1,7 @@
+const { TextEncoder, TextDecoder } = require('util');
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
 // jest.setup.js
 global.figma = {
   // 필요한 메서드나 속성을 모의로 추가
