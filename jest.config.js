@@ -1,10 +1,14 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 /**
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
 
 /** @type {import('jest').Config} */
+
 const config = {
+  testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['./jest.setup.js'],
   globals: {
     jest: {
