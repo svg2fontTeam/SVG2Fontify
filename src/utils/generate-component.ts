@@ -1,8 +1,4 @@
-type ComponentGeneratorParameter = {
-  fontName: string;
-  prefix: string;
-  icons: Record<string, string>;
-};
+import { ComponentGeneratorParameter, SVGListType } from '../types';
 
 export const toPascalCase = (str: string) => {
   return str
@@ -11,12 +7,21 @@ export const toPascalCase = (str: string) => {
     .join('');
 };
 
-export const generateReactImport = (fontName: string) => {
-  return `import React from 'react';\nimport from './${fontName}.css';\n`;
+export const addSufClass = (suffix: string) => {
+  const suffixTf = suffix === '';
+  let classContent = '';
+  if (!suffixTf) {
+    classContent = `-${suffix}`;
+  }
+  return classContent;
 };
-export const generateEnum = (icons: Record<string, string>) => {
-  return `export enum Icons {\n${Object.entries(icons)
-    .map(([name]) => `${toPascalCase(name)} = '${name}'`)
+
+export const generateReactImport = (fontName: string) => {
+  return `import React from 'react';\nimport from './css/${fontName}.css';\n`;
+};
+export const generateEnum = (icons: SVGListType[]) => {
+  return `export enum Icons {\n${icons
+    .map((icon) => `${toPascalCase(icon.metadata.name)} = '${icon.metadata.name}'`)
     .join(',\n')}\n}\n`;
 };
 export const generateReactInterface = () => {
@@ -26,37 +31,55 @@ export const generateReactInterface = () => {
 export const generateReactFunctionComponentFile = ({
   fontName,
   prefix,
+  suffix,
   icons,
 }: ComponentGeneratorParameter) => {
-  return `${generateReactImport(fontName)}
+  const suffixClass = addSufClass(suffix);
+
+  return (
+    `${generateReactImport(fontName)}
   ${generateEnum(icons)}
   ${generateReactInterface()}
-  export const Icon = ({name}: IconInterface) => <i className={\`${prefix} \${name}\`}></i>;`;
+  export const Icon = ({name}: IconInterface) => <i className={\`${prefix} ${prefix}-\${name}` +
+    suffixClass +
+    `\`}></i>;`
+  );
 };
 
 export const generateReactClassComponentFile = ({
   fontName,
   prefix,
+  suffix,
   icons,
 }: ComponentGeneratorParameter) => {
-  return `${generateReactImport(fontName)}
+  const suffixClass = addSufClass(suffix);
+  return (
+    `${generateReactImport(fontName)}
   ${generateEnum(icons)}
   ${generateReactInterface()}
   export class Icon extends React.Component<IconInterface> {
     render() {
-      return <i className={\`${prefix} \${this.props.name}\`}></i>;
+      return <i className={\`${prefix} ${prefix}-\${this.props.name}` +
+    suffixClass +
+    `\`}></i>;
     }
-  }`;
+  }`
+  );
 };
 
 export const generateVueComponentFile = ({
   fontName,
   prefix,
+  suffix,
   icons,
 }: ComponentGeneratorParameter) => {
-  return `
+  const suffixClass = addSufClass(suffix);
+  return (
+    `
   <template>
-    <i :class="\`${prefix} \${name}\`"></i>
+    <i :class="\`${prefix} ${prefix}-\${name}` +
+    suffixClass +
+    `\`"></i>
   </template>
   
   <script lang="ts">
@@ -76,7 +99,8 @@ export const generateVueComponentFile = ({
   </script>
   
   <style scoped>
-  @import './${fontName}.css';
+  @import './css/${fontName}.css';
   </style>
-    `;
+    `
+  );
 };

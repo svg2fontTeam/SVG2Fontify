@@ -23,6 +23,8 @@ export type FontStreamType = {
   ttf: Buffer;
   eot: Buffer;
   woff: Buffer;
+  react?: string;
+  vue?: string;
 };
 
 export type FontOptionsType = {
@@ -32,13 +34,12 @@ export type FontOptionsType = {
 };
 
 export type Data = {
-  fontName: string;
-  preClass: string;
-  sufClass: string;
-  version: string;
+  fontName?: string;
+  preClass?: string;
+  sufClass?: string;
+  version?: string;
   react: boolean;
   vue: boolean;
-  css: boolean;
   count: string;
   id: string;
   postVal: string;
@@ -49,4 +50,11 @@ export type ConvertFont = {
   prefix: string;
   suffix: string;
   svgList: SVGListType[];
+};
+
+export type ComponentGeneratorParameter = {
+  fontName: string;
+  prefix: string;
+  suffix: string;
+  icons: SVGListType[];
 };

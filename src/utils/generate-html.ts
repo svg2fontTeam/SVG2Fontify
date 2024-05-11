@@ -1,4 +1,5 @@
 import { ConvertFont, SVGListType } from '../types';
+import { addSufClass } from './generate-component';
 
 // Function to generate and save the HTML content
 export function generateAndSaveHTML(convertFont: ConvertFont): string {
@@ -17,10 +18,15 @@ export function generateAndSaveHTML(convertFont: ConvertFont): string {
     </head>
     <body>
         <div class="container">`;
+  const classContent = addSufClass(convertFont.suffix);
+
   convertFont.svgList.forEach((icon: SVGListType) => {
-    htmlContent += `
+    htmlContent +=
+      `
         <div class="item">
-            <i class="${convertFont.prefix} ${convertFont.prefix}-${icon.metadata.name}-${convertFont.suffix}"></i>${icon.metadata.name}
+            <i class="${convertFont.prefix} ${convertFont.prefix}-${icon.metadata.name}` +
+      classContent +
+      `"></i>${icon.metadata.name}
         </div>`;
   });
 

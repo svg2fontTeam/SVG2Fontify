@@ -1,4 +1,5 @@
 import { SVGListType } from '../types';
+import { addSufClass } from './generate-component';
 export const generateFontFaceScript = (fontName: string) => {
   return `
     @font-face {\n
@@ -6,7 +7,6 @@ export const generateFontFaceScript = (fontName: string) => {
       src: url("../font/${fontName}.ttf") format("truetype"),\n
       url("../font/${fontName}.eot") format("embedded-opentype"),\n
       url("../font/${fontName}.woff") format("woff");\n
-      url("../font/${fontName}.woff2") format("woff2");\n
       }\n`;
 };
 export const generateClassStyleScript = (prefix: string, fontName: string) => {
@@ -21,10 +21,15 @@ export const generateClassStyleScript = (prefix: string, fontName: string) => {
   `;
 };
 export const generateIconStyleScript = (prefix: string, suffix: string, svg: SVGListType[]) => {
-  return svg.map(
-    (svgData) =>
-      `.${prefix}-${svgData.metadata.name}-${suffix}:before { content: "\\${svgData.metadata.unicode[0]}"; }`
-  );
+  const classContent = addSufClass(suffix);
+  return svg
+    .map(
+      (svgData) =>
+        `.${prefix}-${svgData.metadata.name}` +
+        classContent +
+        `:before { content: "\\${svgData.metadata.unicode[0]}"; }`
+    )
+    .join('\n');
 };
 
 export const generateCssFile = (
