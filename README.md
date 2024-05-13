@@ -1,47 +1,35 @@
 # SVG2Fontify
 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/abdelhakimrafik/icon2font/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/-Vue.js-4fc08d?style=flat&logo=vuedotjs&logoColor=white)](https://ko.vuejs.org/)
+[![Maintenance](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)](https://react.dev)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/abdelhakimrafik/icon2font/blob/master/LICENSE)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/abdelhakimrafik/icon2font/)
 
-Figma plugin to easily export icons to font and output a TTF/EOT/WOFF/SVG/CSS/SASS/TSX
+Figma plugin to easily export icons to font and output a TTF/EOT/WOFF/SVG/CSS/TSX
 
-#### Features:
+![material-symbols_image](https://github.com/svg2fontTeam/SVG2Fontify/assets/77870077/56384a22-1ec9-4b77-824c-db482271b3ca)
+### Features
 
-- Supported font formats: `WOFF`, `EOT`, `TTF` and `SVG`
-- Support `Vue` & `React` & `TypeScript` 
-- Support `Css`
-- Support custom `Fontname`, `Prefix`, `Suffix`, `version`
-- Provide ` preview site HTML file`
+- **Supported Font Formats:** `WOFF`, `EOT`, `TTF`, `SVG`
+- **Framework Support:** Vue, React, TypeScript
+- **CSS Support**
+- **Customization:** Fontname, Prefix, Suffix, Version
+- **Additional Tools:** Preview site HTML file provided
 
-## Usage
+### Usage
 
-1. Install Figma Plugin `SVG2Fontify`
-1. Select icons to be exported
-1. Run the plugin under plugins section
-1. Fill inputs if needed (`Fontname`, `Prefix`, `Suffix`, `version page`) [Optional]
-1. Fill in if needed (`React`, `Vue`) [Optional]
-1. Click `Generate`
+1. **Install:** Download and install the Figma Plugin `SVG2Fontify`.
+2. **Selection:** Select icons that you wish to export.
+3. **Activation:** Access the plugin via the plugins section and run it.
+4. **Configuration:** (Optional) Configure settings like `Fontname`, `Prefix`, `Suffix`, `Version`.
+5. **Framework Specifics:** (Optional) Specify framework integration settings for `React` or `Vue`.
+6. **Generate:** Click on `Generate` to create your custom fonts.
 
-## Contributors
+### Contributors
 
-This project exists thanks to all the people who contribute. 
+A heartfelt thank you to all the individuals whose contributions make this project possible.
 
-## License
+### License
 
-Licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
-
-## 🧩 요구사항 명세
-![image](https://hackmd.io/_uploads/rJOTrGEg0.png)
-![image](https://hackmd.io/_uploads/rJpGifNgA.png)
-
-
-## 🗓️ 일정
-![image](https://hackmd.io/_uploads/SkqOx7EgA.png)
-![image](https://hackmd.io/_uploads/BJQklmNxA.png)
-
-## 📍 참고 자료
-[Breaking Up with SVG-in-JS in 2023](https://kurtextrem.de/posts/svg-in-js)
-[React 개발자를 위한 피그마 플러그인 개발(feat. 온보딩)](https://techblog.woowahan.com/8339/)
+This project is proudly licensed under the [MIT License](https://opensource.org/licenses/MIT).
