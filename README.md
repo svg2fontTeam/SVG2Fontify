@@ -12,17 +12,16 @@ Figma plugin to easily export icons to font and output a TTF/EOT/WOFF/SVG/CSS/SA
 - Supported font formats: `WOFF`, `EOT`, `TTF` and `SVG`
 - Support Vue & `React` & `TypeScript` 
 - Support `Css`
-- Provide `HTML Demo`
-- Exports `Json` file for extra reuse
 - Support custom `Fontname`, `Prefix`, `Suffix`, `version`
-- Automatically generate a preview site
+- Provide ` preview site HTML file`
 
 ## Usage
 
 1. Install Figma Plugin `SVG2Fontify`
 1. Select icons to be exported
 1. Run the plugin under plugins section
-1. Fill inputs if needed (`Fontname`, `Prefix`, `Suffix`, `Version`) [Optional]
+1. Fill inputs if needed (`Fontname`, `Prefix`, `Suffix`, `version page`) [Optional]
+1. Fill in if needed ('React', 'Vue') [Optional]
 1. Click `Generate`
 
 ## Contributors
