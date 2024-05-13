@@ -1,4 +1,4 @@
-# SVG2Fontify
+# ![material-symbols_image](https://github.com/svg2fontTeam/SVG2Fontify/assets/77870077/40092e68-7070-46ef-bf9f-d164220c19d9) SVG2Fontify
 
 [![Maintenance](https://img.shields.io/badge/-Vue.js-4fc08d?style=flat&logo=vuedotjs&logoColor=white)](https://ko.vuejs.org/)
 [![Maintenance](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)](https://react.dev)
