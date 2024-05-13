@@ -23,7 +23,7 @@ const errorHandler = (msg: keyof typeof ERROR_MESSAGE) => {
   return ERROR_MESSAGE[msg];
 };
 
-figma.showUI(__html__, { width: 360, height: 640 });
+figma.showUI(__html__, { width: 360, height: 420 });
 console.log('플러그인이 시작되었습니다.');
 
 figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
@@ -125,4 +125,3 @@ figma.on('selectionchange', () => {
 });
 
 drag();
-
