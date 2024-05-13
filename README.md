@@ -8,7 +8,6 @@
 
 Figma plugin to easily export icons to font and output a TTF/EOT/WOFF/SVG/CSS/TSX
 
-![material-symbols_image](https://github.com/svg2fontTeam/SVG2Fontify/assets/77870077/56384a22-1ec9-4b77-824c-db482271b3ca)
 ### Features
 
 - **Supported Font Formats:** `WOFF`, `EOT`, `TTF`, `SVG`
