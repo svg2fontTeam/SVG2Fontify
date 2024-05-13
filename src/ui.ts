@@ -59,7 +59,6 @@ function saveZip(data: Record<string, any>) {
   });
 }
 
-// 유효성검사 추가 함수.
 function regexpTestAdd(id: string, html: HTMLInputElement) {
   html.addEventListener('keyup', () => {
     const postVal = html.value;
@@ -115,9 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.onmessage = (msg: MessageEvent) => {
-    //figma내에서 선택된 요소들 postMessage로 받아옴
     const pluginMessage = msg.data.pluginMessage;
-    console.log('MSG_DATA :', pluginMessage);
 
     if (pluginMessage && pluginMessage.type === PluginMessageEnum.SELECTED_SVGS) {
       if (countBadge) {

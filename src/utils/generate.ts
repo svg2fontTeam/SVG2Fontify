@@ -13,10 +13,10 @@ function createStreamFromString(
   metadata: { unicode: string[]; name: string }
 ): ReadableWithMetadata {
   const stream = new Readable({
-    read() {}, // Implement the read method to avoid the "_read" not implemented error
+    read() {},
   }) as ReadableWithMetadata;
   stream.push(str);
-  stream.push(null); // End of the stream
+  stream.push(null);
   stream.metadata = metadata;
   return stream;
 }
@@ -40,7 +40,6 @@ export function handleDuplicateNames(names: string[]) {
   return renamedNames;
 }
 
-// figma node -> svg로 변환
 export async function generateSVGCode(target = figma) {
   const svgs = target.currentPage.selection;
 
@@ -73,7 +72,6 @@ export async function generateSVGCode(target = figma) {
 
 // Function to create a Readable stream with metadata from a string
 export async function svgsToSvgFont(svgs: SVGListType[], fontOptions: FontOptionsType) {
-  console.log(svgs);
   let fontData = '';
   const fontStream = new SVGIcons2SVGFontStream(fontOptions);
   const fontDataCollector = new Writable({
@@ -91,7 +89,7 @@ export async function svgsToSvgFont(svgs: SVGListType[], fontOptions: FontOption
       .on('finish', () => {
         resolve(result);
       })
-      // .on('end', () => resolve(result))
+
       .on('error', (err) => {
         reject();
         console.log('stream err on generate.ts 88', err);

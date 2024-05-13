@@ -2,9 +2,7 @@ const { TextEncoder, TextDecoder } = require('util');
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
-// jest.setup.js
 global.figma = {
-  // 필요한 메서드나 속성을 모의로 추가
   root: {
     children: [],
     insertChild: jest.fn(),
@@ -23,5 +21,4 @@ global.figma = {
   ui: {
     postMessage: jest.fn(),
   },
-  // 추가적으로 필요한 API 모의
 };

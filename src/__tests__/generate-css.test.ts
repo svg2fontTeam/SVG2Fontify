@@ -41,12 +41,6 @@ describe('CSS Generation', () => {
     it('should generate correct icon style CSS rules', () => {
       const prefix = 'icon';
       const suffix = 'svg';
-      // {
-      //   content: string;
-      //   metadata: {
-      //       unicode: string[];
-      //       name: string;
-      //   };
       const icons = [
         { content: '', metadata: { name: 'home', unicode: ['e001'] } },
         { content: '', metadata: { name: 'settings', unicode: ['e002'] } },
