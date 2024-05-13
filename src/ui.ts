@@ -13,6 +13,8 @@ function saveZip(data: Record<string, any>) {
     eot,
     html,
     css,
+    react,
+    vue,
   } = data;
   const zip = new JSZip();
 
@@ -45,6 +47,13 @@ function saveZip(data: Record<string, any>) {
     zip?.folder('css')?.file(`${fontName}.css`, css);
   }
 
+  if (react) {
+    zip?.file(`${fontName}.tsx`, react);
+  }
+
+  if (vue) {
+    zip?.file(`${fontName}.vue`, vue);
+  }
   zip.generateAsync({ type: 'blob' }).then(function (content) {
     saveAs(content, `${fontName}.zip`);
   });
@@ -74,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const versionInput = document.getElementById('version') as HTMLInputElement;
   const reactChk = document.getElementById('react') as HTMLInputElement;
   const vueChk = document.getElementById('vue') as HTMLInputElement;
-  const cssChk = document.getElementById('css') as HTMLInputElement;
   const countBadge = document.getElementById('count-badge');
 
   regexpTestAdd('fontName', fontNameInput);
@@ -89,13 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
           pluginMessage: {
             type: PluginMessageEnum.SUBMIT,
             data: {
-              fontName: fontNameInput.value,
-              preClass: preClassInput.value,
+              fontName: fontNameInput.value === '' ? undefined : fontNameInput.value,
+              preClass: preClassInput.value === '' ? undefined : preClassInput.value,
               sufClass: sufClassInput.value,
               version: versionInput.value,
               react: reactChk.checked,
               vue: vueChk.checked,
-              css: cssChk.checked,
               count: countBadge?.textContent,
             },
           },
@@ -122,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (pluginMessage.type === PluginMessageEnum.CHECKED_VALUE) {
       const rtnVal = pluginMessage.data.rtnVal;
-      console.log('rtnVal', rtnVal);
+
       if (pluginMessage.data.id === 'fontName') {
         fontNameInput.value = rtnVal;
       } else if (pluginMessage.data.id === 'preClass') {

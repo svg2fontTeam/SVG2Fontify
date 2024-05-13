@@ -2,6 +2,10 @@ import { PluginMessageEnum, WarningMsg } from './constants';
 import { Data, ConvertFont, FontOptionsType, FontStreamType } from './types';
 import drag from './utils/drag';
 import { generateSVGCode, iconToFont } from './utils/generate';
+import {
+  generateReactClassComponentFile,
+  generateVueComponentFile,
+} from './utils/generate-component';
 import { generateCssFile } from './utils/generate-css';
 import { generateAndSaveHTML } from './utils/generate-html';
 import validationChkAction from './utils/input';
@@ -41,7 +45,6 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
       sufClass = '',
       react = false,
       vue = false,
-      css = '',
       count = '0',
     } = figmaUIData;
 
@@ -53,6 +56,7 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
     if (version) {
       createVersionPage('title', figma);
     }
+
     const svgList = await generateSVGCode(figma);
 
     //FIXME 임시변수제거 -> 순간 그 변수를 CRUD하는 사이드 이팩트 효과가 날 수 있습니다.
@@ -67,7 +71,6 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
       suffix: sufClass,
       svgList: svgList,
     } as unknown as ConvertFont);
-
     const postData: FontStreamType = {
       svgs: svgList,
       fontName,
@@ -75,12 +78,32 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
       ...fontStream,
     };
 
-    if (css) {
-      //XXX css 파일 생성 한개 함수로 변경
-      //FIXME: any 타입을 사용하지 않고, 정확한 타입을 사용하는 것이 좋습니다.
-      const cssFile = generateCssFile(preClass, fontName, sufClass, svgList);
-      postData.css = cssFile;
+    if (react) {
+      const reactClassFile = generateReactClassComponentFile({
+        fontName: fontName,
+        prefix: preClass,
+        suffix: sufClass,
+        icons: svgList,
+      });
+
+      postData.react = reactClassFile;
     }
+
+    if (vue) {
+      const vueFile = generateVueComponentFile({
+        fontName: fontName,
+        prefix: preClass,
+        suffix: sufClass,
+        icons: svgList,
+      });
+
+      postData.vue = vueFile;
+    }
+
+    //XXX css 파일 생성 한개 함수로 변경
+    //FIXME: any 타입을 사용하지 않고, 정확한 타입을 사용하는 것이 좋습니다.
+    const cssFile = generateCssFile(preClass, fontName, sufClass, svgList);
+    postData.css = cssFile;
 
     figma.ui.postMessage({
       type: PluginMessageEnum.SAVE_ICONFONT,
