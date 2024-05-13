@@ -7,7 +7,7 @@ export default function validationChkAction(type: string, postVal: string) {
   if (regexp.test(postVal)) {
     const rtnVal = postVal.replace(regexp, '');
     notify(message, true, 2000);
-    // figma.notify(message, { error: true, timeout: 2000 });
+
     return rtnVal;
   }
 

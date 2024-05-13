@@ -24,10 +24,8 @@ const errorHandler = (msg: keyof typeof ERROR_MESSAGE) => {
 };
 
 figma.showUI(__html__, { width: 360, height: 640 });
-console.log('플러그인이 시작되었습니다.');
 
 figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
-  console.log('ON_MSG : ', msg);
   const { data: figmaUIData } = msg;
   if (!figmaUIData) {
     console.error(errorHandler('NOT_FOUND'));
@@ -35,8 +33,6 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
   }
 
   if (msg.type === PluginMessageEnum.SUBMIT) {
-    // TODO: 추후 version, fontName input 데이터로 분기
-    //FIXME 구조분해할당 사용 -> 더 간결하게 변경, falsy에 대한 핸들링 보다 초기값에 대한 핸들링을 바로 직관적으로 할 수 있습니다.
     const { data: figmaUIData } = msg;
     const {
       version = false,
@@ -58,8 +54,6 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
     }
 
     const svgList = await generateSVGCode(figma);
-
-    //FIXME 임시변수제거 -> 순간 그 변수를 CRUD하는 사이드 이팩트 효과가 날 수 있습니다.
     const fontStream = await iconToFont(svgList, {
       fontName,
       fontHeight: 1000,
@@ -99,9 +93,6 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
 
       postData.vue = vueFile;
     }
-
-    //XXX css 파일 생성 한개 함수로 변경
-    //FIXME: any 타입을 사용하지 않고, 정확한 타입을 사용하는 것이 좋습니다.
     const cssFile = generateCssFile(preClass, fontName, sufClass, svgList);
     postData.css = cssFile;
 
@@ -125,4 +116,3 @@ figma.on('selectionchange', () => {
 });
 
 drag();
-
