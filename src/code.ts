@@ -23,7 +23,7 @@ const errorHandler = (msg: keyof typeof ERROR_MESSAGE) => {
   return ERROR_MESSAGE[msg];
 };
 
-figma.showUI(__html__, { width: 360, height: 640 });
+figma.showUI(__html__, { width: 360, height: 420 });
 
 figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
   const { data: figmaUIData } = msg;
@@ -50,7 +50,7 @@ figma.ui.onmessage = async (msg: { type: string; data: Data }) => {
     }
 
     if (version) {
-      createVersionPage('title', figma);
+      createVersionPage(version, figma);
     }
 
     const svgList = await generateSVGCode(figma);
