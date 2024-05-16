@@ -1,10 +1,10 @@
 # ![material-symbols_image](https://github.com/svg2fontTeam/SVG2Fontify/assets/77870077/794dcee4-a554-49e2-b15e-325ef728dc1c) SVG2Fontify
 
-[![Maintenance](https://img.shields.io/badge/-Vue.js-4fc08d?style=flat&logo=vuedotjs&logoColor=white)](https://ko.vuejs.org/)
 [![Maintenance](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)](https://react.dev)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/abdelhakimrafik/icon2font/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/-Vue.js-4fc08d?style=flat&logo=vuedotjs&logoColor=white)](https://ko.vuejs.org/)
+[![GitHub license](https://badgen.net/static/license/MIT/blue)](https://github.com/svg2fontTeam/SVG2Fontify/blob/trunk/LICENSE.txt)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
-[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/abdelhakimrafik/icon2font/)
+
 
 Figma plugin to easily export icons to font and output a TTF/EOT/WOFF/SVG/CSS/TSX
 
