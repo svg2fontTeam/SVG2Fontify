@@ -5,6 +5,7 @@
 [![GitHub license](https://badgen.net/static/license/MIT/blue)](https://github.com/svg2fontTeam/SVG2Fontify/blob/trunk/LICENSE.txt)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
 
+
 Figma plugin to easily export icons to font and output a TTF/EOT/WOFF/SVG/CSS/TSX
 
 ### Features
